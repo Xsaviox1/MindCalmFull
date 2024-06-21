@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView, TextInput, KeyboardAvoidingView, Platform, Alert} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView, TextInput, KeyboardAvoidingView, Platform, Alert, Linking} from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -9,6 +9,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { WebView } from 'react-native-webview';
+
 
 
 
@@ -451,7 +453,7 @@ const LoginScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollViewLogin}>
         <View style={styles.tituloCadastro}>
           <Text style={styles.tituloCadastroTitulo}>Seja Bem-Vindo(a)!</Text>
-          <Image source={require('./assets/img/mindcalm.png')} style={{ width: 140, height: 160 }}/>
+          <Image source={require('./assets/img/mindcalm.png')} style={{ width: 140, height: 160, marginTop: 25 }}/>
         </View>
         
         <Text style={styles.label} >E-mail</Text>
