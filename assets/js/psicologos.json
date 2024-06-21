@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "imagem": "/assets/img/ps1.svg",
+        "nome": "Bernardo Soares",
+        "tel": "(81) 98765-4321",
+        "distancia": "1 Km de você",
+        "latitude": -8.05613,
+        "longitude": -34.89451
+    },
+    {
+        "id": 2,
+        "imagem": "/assets/img/psi2.svg",
+        "nome": "Juliane Reis",
+        "distancia": "1 min de você",
+        "tel": "(81) 91234-5678",
+        "latitude": -8.02985,
+        "longitude": -34.89253
+    },
+    {
+        "id": 3,
+        "imagem": "/assets/img/psi3.svg",
+        "nome": "Cris Diola",
+        "tel": "(81) 99876-5432",
+        "distancia": "2 Km de você",
+        "latitude": -8.07202,
+        "longitude": -34.9099
+    },
+    {
+        "id": 4,
+        "imagem": "/assets/img/psi4.svg",
+        "nome": "Augosto Castro",
+        "tel": "(81) 92345-6789",
+        "distancia": "1 Km de você",
+        "latitude": -8.07701,
+        "longitude": -34.93097
+    },
+    {
+        "id": 5,
+        "imagem": "/assets/img/psi5.svg",
+        "nome": "Junia Melo",
+        "tel": "(81) 95678-1234",
+        "distancia": "3 Km de você",
+        "latitude": -8.04709,
+        "longitude": -34.95526
+    }
+]
