@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView, TextInput, KeyboardAvoidingView, Platform, Alert, Linking} from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView, TextInput, KeyboardAvoidingView, Platform, Alert, Pressable, Modal, Linking} from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { WebView } from 'react-native-webview';
+import axios from 'axios';
 
 
 
@@ -23,9 +21,6 @@ const getRandomCoordinates = (latitude, longitude, radius = 0.01) => {
 
   return { latitude: newLatitude, longitude: newLongitude };
 };
-
-
-
 const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
@@ -104,7 +99,7 @@ const HomeScreen = ({ navigation }) => {
 
           <Text style={styles.sectionTitle}>Saiba mais sobre saúde mental</Text>
           <TouchableOpacity style={styles.learnMoreBox} onPress={() => navigation.navigate('Home')}>
-            <Image source={require('./assets/img/noticia.png')} style={{ width: 352, height: 243 }}/>
+            <Image source={require('./assets/img/noticia.png')} style={{ width: 'auto', height: 243 }}/>
             <Text>Tudo Sobre Saúde Mental - CNN Brasil</Text>
           </TouchableOpacity>
         </View>
@@ -128,7 +123,7 @@ const HomeScreen = ({ navigation }) => {
           <Ionicons name="chatbubble-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Chat</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
           <Ionicons name="person-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Perfil</Text>
         </TouchableOpacity>
@@ -254,36 +249,44 @@ const MapScreen = ({ navigation }) => {
 };
 
 const DiaryScreen = ({ navigation }) => {
-  const [humorTexto, setText] = useState('');
+  const [text, setText] = useState('');
 
-  const mostrarPopup = () => {
-    
-    console.log("Texto salvo:", humorTexto);
+  const mostrarPopup = (message) => {
+    Alert.alert("Emoção Selecionada", message);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-    
       <View style={styles.titulos}>
         <Text style={styles.title}>Diário de emoções</Text>
         <Text style={styles.subtitle}>Registre suas emoções ao longo do dia</Text>
       </View>
-      <View horizontal style={styles.emocoes}>
-        <MaterialCommunityIcons name="emoticon-outline" size={70} style={[styles.icon, styles.anim]} />
-        <MaterialCommunityIcons name="emoticon-happy-outline" size={70} style={[styles.icon, styles.fel]} />
-        <MaterialCommunityIcons name="emoticon-sad-outline" size={70} style={[styles.icon, styles.tris]} />
-        <MaterialCommunityIcons name="emoticon-angry-outline" size={70} style={[styles.icon, styles.irrt]} />
-        <MaterialCommunityIcons name="emoticon-neutral-outline" size={70} style={[styles.icon, styles.norm]} />
+      <View style={styles.emocoes}>
+        <TouchableOpacity onPress={() => mostrarPopup('Animado')}>
+          <MaterialCommunityIcons name="emoticon-outline" size={62} style={[styles.icon, styles.anim]} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => mostrarPopup('Feliz')}>
+          <MaterialCommunityIcons name="emoticon-happy-outline" size={62} style={[styles.icon, styles.fel]} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => mostrarPopup('Triste')}>
+          <MaterialCommunityIcons name="emoticon-sad-outline" size={62} style={[styles.icon, styles.tris]} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => mostrarPopup('Irritado')}>
+          <MaterialCommunityIcons name="emoticon-angry-outline" size={62} style={[styles.icon, styles.irrt]} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => mostrarPopup('Normal')}>
+          <MaterialCommunityIcons name="emoticon-neutral-outline" size={62} style={[styles.icon, styles.norm]} />
+        </TouchableOpacity>
       </View>
       <View style={styles.respostaDiaria}>
         <TextInput
           style={styles.textarea}
           placeholder="Como você está se sentindo agora?"
           multiline
-          value={humorTexto}
+          value={text}
           onChangeText={setText}
         />
-        <TouchableOpacity style={styles.saveButton} onPress={mostrarPopup}>
+        <TouchableOpacity style={styles.saveButton} onPress={() => console.log("Texto salvo:", text)}>
           <Text style={styles.saveButtonText}>Salvar</Text>
         </TouchableOpacity>
       </View>
@@ -306,7 +309,7 @@ const DiaryScreen = ({ navigation }) => {
           <Ionicons name="chatbubble-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Chat</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
           <Ionicons name="person-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Perfil</Text>
         </TouchableOpacity>
@@ -314,13 +317,12 @@ const DiaryScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
 const ChatScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
   const generateWhatsAppLink = () => {
-    const phoneNumber = '+5511999999999'; // Substitua pelo número de telefone desejado
+    const phoneNumber = '+5581999504711'; // Substitua pelo número de telefone desejado
     const textMessage = `Nome: ${name}, Mensagem: ${message}`;
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(textMessage)}`;
     Linking.openURL(url)
@@ -348,8 +350,8 @@ const ChatScreen = ({ navigation }) => {
           value={message}
           onChangeText={setMessage}
         />
-        <TouchableOpacity style={styles.button} onPress={generateWhatsAppLink}>
-          <Text style={styles.buttonText}>Enviar</Text>
+        <TouchableOpacity style={styles.buttonChat} onPress={generateWhatsAppLink}>
+          <Text style={styles.buttonTextChat}>Enviar</Text>
         </TouchableOpacity>
       </View>
 
@@ -371,7 +373,7 @@ const ChatScreen = ({ navigation }) => {
           <Ionicons name="chatbubble" size={28} color="white" />
           <Text style={styles.navbarText}>Chat</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
           <Ionicons name="person-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Perfil</Text>
         </TouchableOpacity>
@@ -391,11 +393,11 @@ const ProfileScreen = ({ navigation }) => {
           <Ionicons name="home-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Início</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Map')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Mapa')}>
           <Ionicons name="map-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Mapa</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Diary')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Diario')}>
           <Ionicons name="book-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Diário</Text>
         </TouchableOpacity>
@@ -403,7 +405,7 @@ const ProfileScreen = ({ navigation }) => {
           <Ionicons name="chatbubble-outline" size={28} color="white" />
           <Text style={styles.navbarText}>Chat</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
           <Ionicons name="person" size={28} color="white" />
           <Text style={styles.navbarText}>Perfil</Text>
         </TouchableOpacity>
@@ -594,6 +596,11 @@ const CadastroScreen = ({ navigation }) => {
 };
 
 
+
+
+
+
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -602,7 +609,7 @@ export default function App() {
         <Stack.Screen name="Mapa" component={MapScreen} />
         <Stack.Screen name="Diario" component={DiaryScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Perfil" component={ProfileScreen} />
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name='Cadastro' component={CadastroScreen}/>
       </Stack.Navigator>
@@ -670,7 +677,7 @@ tituloCadastro: {
 tituloCadastroTitulo: {
   color: '#fff',
   fontSize: 20,
-  marginBottom: 20,
+  marginBottom: 30,
   fontWeight: '600',
 },
 textoCadastrese: {
@@ -1006,10 +1013,8 @@ subtitle: {
 emocoes: {
   flexDirection: 'row',
   alignItems: 'center',
-  },
-
-  anim:{
-  t: '#98ce96',
+  marginLeft: 20,
+  marginBottom: 30,
   },
   
 icon: {
@@ -1029,6 +1034,24 @@ textarea: {
   padding: 10,
   textAlignVertical: 'top',
   marginBottom: 10, // Ajuste para menor espaço entre o textarea e o botão
+},
+icon: {
+  color: 'black',
+},
+anim: {
+  color: '#98ce96',
+},
+fel: {
+  color: '#ddc749',
+},
+tris: {
+  color: '#91a2ee',
+},
+irrt: {
+  color: '#d87c57',
+},
+norm: {
+  color: '#cc9dba',
 },
 saveButton: {
   backgroundColor: '#9978A7',
@@ -1098,15 +1121,52 @@ textArea: {
   height: 100,
   textAlignVertical: 'top',
 },
-button: {
+buttonChat: {
   backgroundColor: '#9978A7',
   padding: 10,
   borderRadius: 20,
   alignItems: 'center',
 },
-buttonText: {
+buttonTextChat: {
   color: 'white',
   fontWeight: 'bold',
+},
+
+/*Map*/
+map: {
+  ...StyleSheet.absoluteFillObject,
+},
+modalView: {
+  margin: 20,
+  backgroundColor: 'white',
+  borderRadius: 20,
+  padding: 35,
+  alignItems: 'center',
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5,
+},
+button: {
+  borderRadius: 20,
+  padding: 10,
+  elevation: 2,
+},
+buttonClose: {
+  backgroundColor: '#9978A7',
+},
+textStyle: {
+  color: 'white',
+  fontWeight: 'bold',
+  textAlign: 'center',
+},
+modalText: {
+  marginBottom: 15,
+  textAlign: 'center',
 },
 
 
