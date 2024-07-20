@@ -58,6 +58,10 @@ Mostra os psicólogos próximos ao usuário através da localização.
 ###  Chat
 Com a API do WhatsApp o usuário consegue se comunicar com um psicólogo afiliado em caso de emergência.
 
+## Solução premiada
+
+O MindCalm garantiu o 1° lugar no pódio. A Faculdade Senac de Recife, junto a uma banca avaliadora, premiou a solução com o primeiro lugar no evento Projetaí, realizado todos os anos pela faculdade.
+
 ## Equipe
 
 #### José Sávio Gomes
