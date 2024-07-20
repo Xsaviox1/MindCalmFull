@@ -1,6 +1,6 @@
 # MindCalm
 
-##### Acesse o aplicativo online -> https://mindcalmapp.netlify.app
+##### Acesse o PWA do aplicativo online (Mobile) -> https://mindcalmapp.netlify.app
 
 ## Justificativa
 A refinaria contratante, através de meticulosa análise, constatou que grande parte de seus funcionários apresentam sintomas relacionados a transtornos psicológicos, o que também afeta o seu desempenho dentro da empresa. A empresa busca então auxiliar seus funcionários no alcance de uma melhor saúde mental e, consequentemente, criar um ambiente mais confortável e acolhedor para estes
