@@ -322,7 +322,7 @@ const ChatScreen = ({ navigation }) => {
   const [message, setMessage] = useState('');
 
   const generateWhatsAppLink = () => {
-    const phoneNumber = '+5581999504711'; // Substitua pelo número de telefone desejado
+    const phoneNumber = '+5581999504711';
     const textMessage = `Nome: ${name}, Mensagem: ${message}`;
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(textMessage)}`;
     Linking.openURL(url)
@@ -885,7 +885,7 @@ tituloCadastroTexto: {
   },
   scrollContainer: {
     flexGrow: 1,
-    paddingBottom: 60, // Espaço extra para a barra de navegação
+    paddingBottom: 60,
   },
   content: {
     padding: 20,
@@ -901,13 +901,13 @@ tituloCadastroTexto: {
     
   },
   moodBox: {
-    width: 80,   // Largura do card (30x30 com margem)
-    height: 100,  // Altura do card (30x30 com margem)
+    width: 80, 
+    height: 100,  
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 5,  // Margem horizontal entre os cards
-    backgroundColor: 'white',  // Cor de fundo do card
-    borderRadius: 15,   // Metade da largura e altura para fazer um card circular
+    marginHorizontal: 5,  
+    backgroundColor: 'white',  
+    borderRadius: 15,   
     elevation: 5,   // Elevação para dar uma sombra ao card
     marginBottom: 10,
     marginTop: 5,
@@ -949,13 +949,13 @@ tituloCadastroTexto: {
   podcastList: {
     flexDirection: 'row',
     paddingVertical: 10,
-    paddingHorizontal: 0, // adicionado para evitar padding indesejado
+    paddingHorizontal: 0, 
   },
   podcastBox: {
     alignItems: 'center',
     padding: 10,
-    marginHorizontal: 8, // ajustado para espaço entre os itens
-    width: 150, // largura fixa para cada podcast
+    marginHorizontal: 8, 
+    width: 150, 
   },
   podcastThumbnail: {
     width: '100%',
